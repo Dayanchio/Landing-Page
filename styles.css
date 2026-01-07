@@ -4,7 +4,6 @@
   box-sizing: border-box;
 }
 html {
-  scroll-behavior: smooth;
   font-family: "Zalando Sans", sans-serif;
 }
 body {
@@ -23,14 +22,14 @@ li {
 a {
   text-decoration: none;
   color: inherit;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease;
 }
 a:focus-visible {
   outline: 1px solid var(--primary);
 }
 button {
   cursor: pointer;
-  transition: var(--transition);
+  transition: var(--transition-tf), var(--transition-bg);
 }
 button:focus-visible {
   outline: 1px solid var(--primary);
@@ -48,7 +47,8 @@ button:focus-visible {
   --shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   --gap: 15px;
   --header: 60px;
-  --transition: all 0.3s ease;
+  --transition-bg: background-color 0.3s ease;
+  --transition-tf: transform 0.3s ease;
   --hover: #edeaed;
   --card-width: 300px;
   --grid-one-column: 1fr;
@@ -80,7 +80,7 @@ header {
   border: none;
   padding: var(--padding-button);
   border-radius: var(--border);
-  transition: var(--transition);
+  transition: var(--transition-bg), var(--transition-tf);
 }
 .fa-bars,
 .fa-square-up-right {
@@ -111,6 +111,7 @@ header {
 }
 .header-btn:hover {
   background-color: var(--hover);
+  transform: none;
 }
 .mobile-nav {
   display: none;
@@ -125,11 +126,16 @@ header {
   text-align: center;
 }
 .mobile-link {
-  padding: var(--padding-section) 0;
   border-bottom: 1px solid var(--secondary);
+  transition: var(--transition-bg);
 }
 .mobile-link:hover {
   background-color: var(--hover);
+}
+.mobile-link a {
+  padding: var(--padding-section);
+  display: block;
+  width: 100%;
 }
 section {
   padding: 0 var(--padding-section);
@@ -148,6 +154,7 @@ section {
 }
 #home-subtext {
   text-align: center;
+  transition: var(--transition-tf);
 }
 #home-subtext:hover {
   transform: translateX(10px);
@@ -163,13 +170,9 @@ section {
 .card {
   background-color: var(--background);
   box-shadow: var(--shadow);
-  border-radius: var(--border);
+  border-radius: 25px;
   padding: var(--padding-section);
-  transition: var(--transition);
-}
-.feature-card {
-  min-width: var(--card-width);
-  min-height: 250px;
+  transition: transform 0.3s ease;
 }
 .card-header {
   display: flex;
@@ -179,10 +182,6 @@ section {
   display: grid;
   grid-template-columns: var(--grid-one-column);
   gap: var(--gap);
-}
-.metrics-card {
-  min-width: var(--card-width);
-  min-height: 150px;
 }
 .metrics-header {
   display: flex;
@@ -195,8 +194,6 @@ section {
 }
 .testimonial-card {
   position: relative;
-  min-width: var(--card-width);
-  min-height: 200px;
 }
 .user {
   display: flex;
@@ -288,5 +285,10 @@ footer {
   }
   .card:hover {
     transform: scale(1.025);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
   }
 }
