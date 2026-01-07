@@ -25,9 +25,15 @@ a {
   color: inherit;
   transition: all 0.3s ease;
 }
+a:focus-visible {
+  outline: 1px solid var(--primary);
+}
 button {
   cursor: pointer;
   transition: var(--transition);
+}
+button:focus-visible {
+  outline: 1px solid var(--primary);
 }
 :root {
   --background: #fffaff;
@@ -35,7 +41,8 @@ button {
   --primary: #30bced;
   --secondary: #303036;
   --accent: #fc5130;
-  --padding: 12px;
+  --padding-section: 12px;
+  --padding-button: 8px;
   --margin: 15px;
   --border: 50px;
   --shadow: 0 0 5px rgba(0, 0, 0, 0.2);
@@ -43,43 +50,36 @@ button {
   --header: 60px;
   --transition: all 0.3s ease;
   --hover: #edeaed;
+  --card-width: 300px;
+  --grid-one-column: 1fr;
 }
 header {
   background-color: var(--background);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--padding);
+  padding: var(--padding-section);
   position: sticky;
   z-index: 1000;
   top: 0;
   border-bottom: 1px solid var(--secondary);
   height: var(--header);
 }
-.dark-mode {
-  margin-left: auto;
-  background: none;
-  border: none;
-}
 .nav-list {
   display: none;
-  margin-left: auto;
-  gap: var(--gap);
 }
 .nav-list a {
-  padding: 8px;
+  padding: var(--padding-button);
   border-radius: var(--border);
 }
 .nav-list a:hover {
   background-color: var(--hover);
-  color: hsl(60, 1%, 31%);
 }
 .menu-btn {
-  margin-left: auto;
   background: none;
   border: none;
-  padding: 8px;
-  border-radius: 25px;
+  padding: var(--padding-button);
+  border-radius: var(--border);
   transition: var(--transition);
 }
 .fa-bars,
@@ -93,22 +93,21 @@ header {
   transform: rotate(90deg);
 }
 .cta-btn {
-  font-size: 1.2em;
+  font-size: 1.5em;
   background-color: var(--accent);
   color: var(--background);
   border: none;
   border-radius: var(--border);
-  padding: 8px;
+  padding: var(--padding-button);
 }
 .cta-btn:hover {
   background-color: #ca4227;
+  transform: scale(1.05);
 }
 .header-btn {
   background-color: var(--background);
   color: var(--primary);
   font-size: 1em;
-  max-width: 6rem;
-  margin-left: auto;
 }
 .header-btn:hover {
   background-color: var(--hover);
@@ -126,14 +125,14 @@ header {
   text-align: center;
 }
 .mobile-link {
-  padding: var(--padding) 0;
+  padding: var(--padding-section) 0;
   border-bottom: 1px solid var(--secondary);
 }
 .mobile-link:hover {
   background-color: var(--hover);
 }
 section {
-  padding: 0 var(--padding);
+  padding: 0 var(--padding-section);
   scroll-margin-top: var(--header);
 }
 #home {
@@ -145,25 +144,31 @@ section {
   max-width: 10rem;
   margin: var(--margin);
   align-self: center;
-  padding: var(--padding);
+  padding: var(--padding-button);
+}
+#home-subtext {
+  text-align: center;
+}
+#home-subtext:hover {
+  transform: translateX(10px);
 }
 .container {
   margin: var(--margin) 0;
 }
 .feature-cards {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: var(--grid-one-column);
   gap: var(--gap);
 }
 .card {
   background-color: var(--background);
   box-shadow: var(--shadow);
   border-radius: var(--border);
-  padding: var(--padding);
+  padding: var(--padding-section);
   transition: var(--transition);
 }
 .feature-card {
-  min-width: 300px;
+  min-width: var(--card-width);
   min-height: 250px;
 }
 .card-header {
@@ -172,11 +177,11 @@ section {
 }
 .metrics-cards {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: var(--grid-one-column);
   gap: var(--gap);
 }
 .metrics-card {
-  min-width: 300px;
+  min-width: var(--card-width);
   min-height: 150px;
 }
 .metrics-header {
@@ -185,12 +190,12 @@ section {
 }
 .testimonial-cards {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: var(--grid-one-column);
   gap: var(--gap);
 }
 .testimonial-card {
   position: relative;
-  min-width: 300px;
+  min-width: var(--card-width);
   min-height: 200px;
 }
 .user {
@@ -202,10 +207,10 @@ section {
   min-width: 75px;
   min-height: 75px;
   aspect-ratio: 1/1;
-  border-radius: 100px;
+  border-radius: var(--border);
   box-shadow: var(--shadow);
   background-color: var(--background);
-  padding: var(--padding);
+  padding: var(--padding-section);
 }
 #cta-section {
   display: flex;
@@ -220,30 +225,29 @@ section {
 }
 footer {
   margin-top: var(--margin);
-  padding: var(--padding);
+  padding: var(--padding-section);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 .footer-sections {
   display: grid;
-  place-items: center;
+  justify-items: center;
   grid-template-columns: repeat(2, 1fr);
 }
 .footer-text {
-  margin-top: 5rem;
+  padding-top: 5rem;
 }
-section h2 {
+.section-heading {
+  padding: 2rem var(--padding-section);
   text-align: center;
 }
 @media screen and (min-width: 600px) {
-  section {
-    padding: 5.25rem var(--padding) 0;
-  }
-  #home-text {
-    margin-top: 5.25rem;
+  .section-heading {
+    padding: 5.25rem var(--padding-section);
   }
   .nav-list {
+    gap: 30px;
     display: flex;
   }
   .menu-btn {
@@ -267,17 +271,7 @@ section h2 {
 }
 @media screen and (min-width: 1200px) {
   .nav-list {
-    display: flex;
-    gap: 5rem;
-  }
-  #home-text {
-    margin-top: 5.25rem;
-  }
-  section {
-    padding: 5.25rem var(--padding) 0;
-  }
-  .menu-btn {
-    display: none;
+    gap: 60px;
   }
   .feature-cards {
     grid-template-columns: repeat(3, 1fr);
@@ -288,14 +282,8 @@ section h2 {
   .testimonial-cards {
     grid-template-columns: repeat(3, 1fr);
   }
-  .footer-sections {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  #home {
-    background-image: url("static/blob-scatter-haikei(1).svg");
-  }
   footer {
-    padding: 5.25rem var(--padding) 0;
+    padding: 5.25rem var(--padding-section) 0;
     background-image: url("static/blob-scatter-haikei(2).svg");
   }
   .card:hover {
